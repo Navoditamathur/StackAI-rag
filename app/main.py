@@ -7,8 +7,8 @@ from app.generation import generate_answer, hallucination_check
 from fastapi.middleware.cors import CORSMiddleware
 
 origins = [
-    "http://localhost:3000",
-    "http://127.0.0.1:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:3001",
 ]
 app = FastAPI()
 
@@ -24,15 +24,13 @@ app.add_middleware(
 @app.post("/ingest")
 async def ingest_files(files: list[UploadFile] = File(...)):
     for file in files:
-        ingest(file.file)
+        ingest(file)
     return {"status": "ingested"}
 
 
 @app.get("/query")
 def query(q: str):
-    print("Query: ", q)
     intent = classify_intent(q)
-    print("Intent: ", intent)
     if intent == "GREETING":
         return {
             "answer": "Hello! How can I help?",

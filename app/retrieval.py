@@ -35,15 +35,13 @@ def search(query):
     scores = []
     for i, emb in enumerate(embeddings):
         sem = cosine_similarity(q_emb, emb)
-        key = keyword_score(query, docs[i])
+        key = keyword_score(query, docs[i]["text"])
         score = 0.7 * sem + 0.3 * key
-        scores.append((score, docs[i]))
+        scores.append((score, i))  # store index
 
     scores.sort(reverse=True)
-    print("Scores: ", scores)
     top = scores[:TOP_K]
 
     if top[0][0] < SIM_THRESHOLD:
         return []
-
-    return [doc for _, doc in top]
+    return [docs[i] for _, i in top]

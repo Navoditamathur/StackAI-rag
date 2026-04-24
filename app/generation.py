@@ -39,20 +39,24 @@ Question:
 """
 
 def generate_answer(query, docs, memory="", answer_type="PARAGRAPH"):
-
-    context = "\n\n".join(docs)
-
+    context = "\n\n".join([d["text"] for d in docs])
     prompt = build_prompt(query, context, memory, answer_type)
-
     response = client.chat.complete(
         model=CHAT_MODEL,
         messages=[{"role": "user", "content": prompt}]
     )
-
+    answer = response.choices[0].message.content
     return {
-        "answer": response.choices[0].message.content,
-        "sources": docs
-    }
+        "answer": answer,
+        "sources": [
+        {
+            "source": d["source"],
+            "page": d["page"],
+            "preview": d["text"][:200],
+        }
+        for d in docs
+        ]
+}
 
 def split_sentences(text):
     return [s.strip() for s in re.split(r'(?<=[.!?]) +', text) if s.strip()]
@@ -61,7 +65,8 @@ def hallucination_check(answer, docs, threshold=0.65):
     sentences = split_sentences(answer)
 
     sentence_embeddings = embed_texts(sentences)
-    doc_embeddings = embed_texts(docs)
+    sources = [s['source'] for s in docs]
+    doc_embeddings = embed_texts(sources)
 
     unsupported = []
 
