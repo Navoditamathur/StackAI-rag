@@ -44,6 +44,12 @@ def embed_texts(texts, batch_size=16):
     return all_embeddings
 
 def save_data(chunks, embeddings):
+    if not os.path.exists(DOC_PATH):
+        os.makedirs(os.path.dirname(DOC_PATH), exist_ok=True)
+    
+    if not os.path.exists(EMB_PATH):
+        os.makedirs(os.path.dirname(EMB_PATH), exist_ok=True)
+
     if os.path.exists(DOC_PATH) and os.path.getsize(DOC_PATH) > 0:
         try:
             with open(DOC_PATH, "r") as f:
