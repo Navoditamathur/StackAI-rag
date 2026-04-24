@@ -1,0 +1,7 @@
+MISTRAL_API_KEY = ""
+EMBEDDING_MODEL = "mistral-embed"
+CHAT_MODEL = "mistral-small"
+CHUNK_SIZE = 200
+CHUNK_OVERLAP = 50
+SIM_THRESHOLD = 0.6
+TOP_K = 5
