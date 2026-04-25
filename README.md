@@ -179,7 +179,7 @@ Output format is selected dynamically:
 
 ---
 
-## 🚨 Hallucination Filter
+## Hallucination Filter
 
 A post-hoc validation step ensures factual grounding:
 
@@ -198,7 +198,7 @@ If validation fails:
 
 ## 💬 API Endpoints
 
-### 📥 Ingestion
+### Ingestion
 
 ```
 POST /ingest
@@ -232,7 +232,7 @@ Returns:
 
 ---
 
-## 💻 UI
+## UI
 
 A lightweight HTML/JS chat interface:
 
@@ -242,7 +242,7 @@ A lightweight HTML/JS chat interface:
 
 ---
 
-## ⚙️ How to Run
+## How to Run
 
 ### 1. Install dependencies
 
@@ -283,7 +283,7 @@ http://localhost:3000
 
 ---
 
-## 🧰 Tech Stack
+## Tech Stack
 
 * FastAPI (backend API)
 * Mistral AI API (LLM + embeddings)
